@@ -3,6 +3,7 @@ module github.com/ahmed-saleh/playbook
 go 1.16
 
 require (
+	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210817150010-57d659deaca7
 	github.com/gin-gonic/gin v1.7.3
 	github.com/go-pg/pg/v10 v10.10.3
 	github.com/go-playground/validator/v10 v10.9.0 // indirect

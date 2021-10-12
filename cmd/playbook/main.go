@@ -2,6 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
+
+    "github.com/elastic/go-elasticsearch/v8"
 )
 
 func main() {
@@ -15,5 +18,8 @@ func main() {
 }
 
 func callme() string {
+	es, _ := elasticsearch.NewDefaultClient()
+    log.Println(elasticsearch.Version)
+    log.Println(es.Info())
 	return "test api!"
 }
