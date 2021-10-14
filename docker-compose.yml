@@ -48,11 +48,28 @@ services:
     networks:
       - playbook
 
+  ## MySQL
+  playbook-db:
+    container_name: playbook-db
+    image: mysql:5.7
+    volumes:
+      - playbook_db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=playbook
+      - MYSQL_USER=playbookUser
+      - MYSQL_PASSWORD=playbookPassword
+    ports:
+      - "3306:3306"
+    networks:
+      - playbook
+
 networks:
   playbook:
     external:
       name: playbook
 
 volumes:
+  playbook_db: {}
   elasticsearch-data:
     driver: local
