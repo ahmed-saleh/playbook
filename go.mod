@@ -3,12 +3,10 @@ module github.com/ahmed-saleh/playbook
 go 1.16
 
 require (
-	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210817150010-57d659deaca7
 	github.com/gin-gonic/gin v1.7.3
-	github.com/go-pg/pg/v10 v10.10.3
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/joho/godotenv v1.4.0
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -16,6 +14,8 @@ require (
 	github.com/ugorji/go v1.2.6 // indirect
 	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
-	gopkg.in/ini.v1 v1.63.2 // indirect
+	gopkg.in/ini.v1 v1.63.2
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gorm.io/driver/mysql v1.1.2
+	gorm.io/gorm v1.21.16
 )
