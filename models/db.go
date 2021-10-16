@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/ahmed-saleh/playbook/config"
-	"github.com/google/uuid"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -21,7 +20,7 @@ type Model struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
-	uuid      uuid.UUID      `gorm:"type:uuid;default:uuid_generate_v4()"`
+	Uuid      string
 }
 
 func Setup() {
@@ -37,5 +36,5 @@ func Setup() {
 		log.Fatalf("models.Setup err: %v", err)
 	}
 
-	db.AutoMigrate(&Model{}, &User{})
+	db.AutoMigrate(&User{})
 }
