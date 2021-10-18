@@ -30,7 +30,7 @@ func Setup() {
 	dsn := config.MysqlSettings.User + ":" + config.MysqlSettings.Password + "@tcp" + "(" + config.MysqlSettings.Host + ":" + config.MysqlSettings.Port + ")/" + config.MysqlSettings.Name + "?" + "parseTime=true&loc=Local"
 	fmt.Println(dsn)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalf("models.Setup err: %v", err)
