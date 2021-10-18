@@ -8,9 +8,10 @@ import (
 	"log"
 	"time"
 
-	"github.com/ahmed-saleh/playbook/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+
+	"github.com/ahmed-saleh/playbook/config"
 )
 
 var db *gorm.DB
