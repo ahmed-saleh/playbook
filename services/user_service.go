@@ -29,3 +29,20 @@ func (u *User) AddUser() error {
 
 	return nil
 }
+
+//add params to listing later
+func (u *User) List() ([]*m.User, error) {
+	dat, err := m.GetUsers(u.PageNum, 3, u.getMaps())
+	if err != nil {
+		return nil, err
+	}
+
+	return dat, nil
+}
+
+//add map info
+func (u *User) getMaps() map[string]interface{} {
+	maps := make(map[string]interface{})
+
+	return maps
+}

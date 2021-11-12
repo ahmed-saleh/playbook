@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/ahmed-saleh/playbook/pkg/app"
+	"github.com/ahmed-saleh/playbook/pkg/utils"
 	"github.com/ahmed-saleh/playbook/services"
 )
 
@@ -33,6 +34,20 @@ func CreateUser(c *gin.Context) {
 	}
 
 	if err := user_service.AddUser(); err != nil {
-		appG.Response(http.StatusInternalServerError, 500, map[string]interface{}{})
+		appG.Response(http.StatusInternalServerError, 500, "something went wrong during creation")
 	}
+
+	appG.Response(http.StatusCreated, 201, "User created successfully")
+}
+
+func ListUsers(c *gin.Context) {
+	appG := app.Gin{C: c}
+
+	user_service := services.User{
+		PageNum: utils.GetPage(c),
+	}
+
+	data, _ := user_service.List()
+	appG.Response(http.StatusCreated, 200, data)
+
 }

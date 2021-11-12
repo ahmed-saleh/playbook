@@ -29,9 +29,12 @@ func Setup() {
 	var err error
 	//TODO: clean up this
 	dsn := config.MysqlSettings.User + ":" + config.MysqlSettings.Password + "@tcp" + "(" + config.MysqlSettings.Host + ":" + config.MysqlSettings.Port + ")/" + config.MysqlSettings.Name + "?" + "parseTime=true&loc=Local"
-	fmt.Println(dsn)
 
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	m := map[string]int{"text": 1}
+
+	fmt.Println(m)
 
 	if err != nil {
 		log.Fatalf("models.Setup err: %v", err)

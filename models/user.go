@@ -30,3 +30,13 @@ func AddUser(data map[string]interface{}) error {
 	}
 	return nil
 }
+
+func GetUsers(pageNum int, pageSize int, maps interface{}) ([]*User, error) {
+	var users []*User
+	err := db.Offset(pageNum).Limit(pageSize).Find(&users).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
+	return users, nil
+}
