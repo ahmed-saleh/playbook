@@ -1,16 +1,11 @@
 package services
 
 import (
-	"fmt"
-
 	m "github.com/ahmed-saleh/playbook/models"
 )
 
-func CreateUser(d []string) {
-	fmt.Println(d)
-}
-
 type User struct {
+	Id           string
 	Display_name string
 	Email        string
 	PageNum      int
@@ -45,4 +40,11 @@ func (u *User) getMaps() map[string]interface{} {
 	maps := make(map[string]interface{})
 
 	return maps
+}
+
+func (u *User) DeleteUser() error {
+	if err := m.DeleteUser(u.Id); err != nil {
+		return err
+	}
+	return nil
 }

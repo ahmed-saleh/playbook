@@ -28,12 +28,12 @@ func CreateUser(c *gin.Context) {
 	var form CreateUserForm
 	_ = c.Bind(&form)
 
-	user_service := services.User{
+	userService := services.User{
 		Display_name: form.Display_name,
 		Email:        form.Email,
 	}
 
-	if err := user_service.AddUser(); err != nil {
+	if err := userService.AddUser(); err != nil {
 		appG.Response(http.StatusInternalServerError, 500, "something went wrong during creation")
 	}
 
@@ -43,11 +43,27 @@ func CreateUser(c *gin.Context) {
 func ListUsers(c *gin.Context) {
 	appG := app.Gin{C: c}
 
-	user_service := services.User{
+	userService := services.User{
 		PageNum: utils.GetPage(c),
 	}
 
-	data, _ := user_service.List()
-	appG.Response(http.StatusCreated, 200, data)
+	data, _ := userService.List()
+	appG.Response(http.StatusOK, 200, data)
+
+}
+
+func DeleteUser(c *gin.Context) {
+	appG := app.Gin{C: c}
+	params, _ := c.Params.Get("id")
+
+	userService := services.User{
+		Id: params,
+	}
+
+	if err := userService.DeleteUser(); err != nil {
+		appG.Response(http.StatusInternalServerError, 422, err)
+	}
+
+	appG.Response(http.StatusOK, 200, "User was deleted successfully.")
 
 }

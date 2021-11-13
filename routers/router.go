@@ -17,6 +17,7 @@ func InitRouter() *gin.Engine {
 		apiV1.GET("/user", v1.ListUsers)
 		apiV1.GET("/user/:id", v1.GetUser)
 		apiV1.POST("/user", v1.CreateUser)
+		apiV1.DELETE("/user/:id", v1.DeleteUser)
 	}
 
 	return r

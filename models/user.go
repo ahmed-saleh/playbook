@@ -40,3 +40,11 @@ func GetUsers(pageNum int, pageSize int, maps interface{}) ([]*User, error) {
 
 	return users, nil
 }
+
+func DeleteUser(Id string) error {
+
+	if err := db.Delete(&User{}, Id).Error; err != nil {
+		return err
+	}
+	return nil
+}
