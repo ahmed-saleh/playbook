@@ -59,11 +59,11 @@ var AppSetting = &App{}
 var MysqlSettings = &Mysql{}
 var cfg *ini.File
 
-func Setup() {
+func Setup(path string) {
 	var err error
-	cfg, err = ini.Load("config/app.ini")
+	cfg, err = ini.Load(path)
 	if err != nil {
-		log.Fatalf("setting.Setup, fail to parse 'conf/app.ini': %v", err)
+		log.Fatalf("setting: %v", err)
 	}
 
 	mapTo("app", AppSetting)

@@ -6,8 +6,7 @@ import (
 	v1 "github.com/ahmed-saleh/playbook/routers/api/v1"
 )
 
-func InitRouter() *gin.Engine {
-	r := gin.New()
+func InitRouter(r *gin.Engine) {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
@@ -19,6 +18,4 @@ func InitRouter() *gin.Engine {
 		apiV1.POST("/user", v1.CreateUser)
 		apiV1.DELETE("/user/:id", v1.DeleteUser)
 	}
-
-	return r
 }
