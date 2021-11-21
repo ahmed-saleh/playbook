@@ -9,5 +9,6 @@ import (
 func main() {
 	config.Setup("ini/app.ini")
 	models.Setup(config.MysqlSettings)
-	server.Start(config.ServerSettings)
+	s := server.Build(config.ServerSettings)
+	s.ListenAndServe()
 }

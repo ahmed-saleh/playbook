@@ -10,7 +10,7 @@ import (
 	"github.com/ahmed-saleh/playbook/routers"
 )
 
-func Start(settings *config.Server) {
+func Build(settings *config.Server) *http.Server {
 	r := gin.New()
 	//load APIs
 	routers.InitRouter(r)
@@ -28,5 +28,5 @@ func Start(settings *config.Server) {
 		ReadTimeout:    readTimeout,
 		WriteTimeout:   writeTimeout,
 	}
-	server.ListenAndServe()
+	return server
 }

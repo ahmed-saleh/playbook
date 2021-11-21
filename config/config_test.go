@@ -9,7 +9,7 @@ import (
 	c "github.com/ahmed-saleh/playbook/config"
 )
 
-func TestPlaybook(t *testing.T) {
+func TestConfig(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Config Suite")
 }
