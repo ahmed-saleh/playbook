@@ -5,6 +5,7 @@ package models
 
 import (
 	"github.com/google/uuid"
+	"github.com/gookit/validate"
 	"gorm.io/gorm"
 )
 
@@ -20,14 +21,23 @@ func (u *User) BeforeCreate(db *gorm.DB) error {
 }
 
 func AddUser(data map[string]interface{}) error {
-	user := &User{
-		Email:        data["email"].(string),
-		Display_name: data["display_name"].(string),
+	v := validate.Map(data)
+	//TODO: build a helper and apply on middleware as well
+	v.StringRule("email", "required|minLen:7")
+	v.StringRule("display_name", "required|minLen:7")
+
+	if v.Validate() {
+		user := &User{
+			Email:        data["email"].(string),
+			Display_name: data["display_name"].(string),
+		}
+		if err := db.Create(&user).Error; err != nil {
+			return err
+		}
+	} else {
+		return v.Errors
 	}
 
-	if err := db.Create(&user).Error; err != nil {
-		return err
-	}
 	return nil
 }
 
