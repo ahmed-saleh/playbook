@@ -54,7 +54,7 @@ type Mysql struct {
 	TablePrefix string
 }
 
-var ServerSetting = &Server{}
+var ServerSettings = &Server{}
 var AppSetting = &App{}
 var MysqlSettings = &Mysql{}
 var cfg *ini.File
@@ -67,11 +67,11 @@ func Setup(path string) {
 	}
 
 	mapTo("app", AppSetting)
-	mapTo("server", ServerSetting)
+	mapTo("server", ServerSettings)
 	mapTo("mysql", MysqlSettings)
 
-	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
-	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
+	ServerSettings.ReadTimeout = ServerSettings.ReadTimeout * time.Second
+	ServerSettings.WriteTimeout = ServerSettings.WriteTimeout * time.Second
 }
 
 // load each configurations

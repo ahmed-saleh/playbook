@@ -17,7 +17,7 @@ func TestPlaybook(t *testing.T) {
 var _ = Describe("Config", func() {
 
 	BeforeEach(func() {
-		c.Setup("test.ini")
+		c.Setup("../ini/test.ini")
 	})
 
 	Describe("Varifying DB setup", func() {

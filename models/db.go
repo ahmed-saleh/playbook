@@ -4,7 +4,6 @@
 package models
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -24,17 +23,13 @@ type Model struct {
 	Uuid      string
 }
 
-func Setup() {
+func Setup(m *config.Mysql) {
 
 	var err error
 	//TODO: clean up this
-	dsn := config.MysqlSettings.User + ":" + config.MysqlSettings.Password + "@tcp" + "(" + config.MysqlSettings.Host + ":" + config.MysqlSettings.Port + ")/" + config.MysqlSettings.Name + "?" + "parseTime=true&loc=Local"
+	dsn := m.User + ":" + m.Password + "@tcp" + "(" + m.Host + ":" + m.Port + ")/" + m.Name + "?" + "parseTime=true&loc=Local"
 
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
-	m := map[string]int{"text": 1}
-
-	fmt.Println(m)
 
 	if err != nil {
 		log.Fatalf("models.Setup err: %v", err)

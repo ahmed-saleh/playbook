@@ -10,16 +10,16 @@ import (
 	"github.com/ahmed-saleh/playbook/routers"
 )
 
-func Start() {
+func Start(settings *config.Server) {
 	r := gin.New()
 	//load APIs
 	routers.InitRouter(r)
 
-	readTimeout := config.ServerSetting.ReadTimeout
-	writeTimeout := config.ServerSetting.WriteTimeout
-	endPoint := fmt.Sprintf(":%d", config.ServerSetting.HttpPort)
+	readTimeout := settings.ReadTimeout
+	writeTimeout := settings.WriteTimeout
+	endPoint := fmt.Sprintf(":%d", settings.HttpPort)
 	maxHeaderBytes := 1 << 20
-	gin.SetMode(config.ServerSetting.RunMode)
+	gin.SetMode(settings.RunMode)
 
 	server := &http.Server{
 		Handler:        r,

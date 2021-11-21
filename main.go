@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	config.Setup("config/app.ini")
-	models.Setup()
-	server.Start()
+	config.Setup("ini/app.ini")
+	models.Setup(config.MysqlSettings)
+	server.Start(config.ServerSettings)
 }
