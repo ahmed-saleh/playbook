@@ -34,9 +34,10 @@ func CreateUser(c *gin.Context) {
 	}
 
 	if err := userService.AddUser(); err != nil {
-		appG.Response(http.StatusInternalServerError, 500, "something went wrong during creation")
+		appG.Response(http.StatusInternalServerError, 500, err)
+		appG.C.Abort()
+		return
 	}
-
 	appG.Response(http.StatusCreated, 201, "User created successfully")
 }
 
