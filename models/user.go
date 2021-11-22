@@ -23,18 +23,20 @@ func (u *User) BeforeCreate(db *gorm.DB) error {
 func AddUser(data map[string]interface{}) error {
 	v := validate.Map(data)
 	//TODO: build a helper and apply on middleware as well
-	v.StringRule("email", "required|minLen:7")
-	v.StringRule("display_name", "required|minLen:7")
+	v.StringRule("email", "required|minLen:3")
+	v.StringRule("display_name", "required|minLen:3")
 
 	if v.Validate() {
+
 		user := &User{
 			Email:        data["email"].(string),
 			Display_name: data["display_name"].(string),
 		}
-		if err := db.Create(&user).Error; err != nil {
+		if err := DB.Create(&user).Error; err != nil {
 			return err
 		}
 	} else {
+
 		return v.Errors
 	}
 
@@ -43,7 +45,7 @@ func AddUser(data map[string]interface{}) error {
 
 func GetUsers(pageNum int, pageSize int, maps interface{}) ([]*User, error) {
 	var users []*User
-	err := db.Offset(pageNum).Limit(pageSize).Find(&users).Error
+	err := DB.Offset(pageNum).Limit(pageSize).Find(&users).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}
@@ -53,7 +55,7 @@ func GetUsers(pageNum int, pageSize int, maps interface{}) ([]*User, error) {
 
 func DeleteUser(Id string) error {
 
-	if err := db.Delete(&User{}, Id).Error; err != nil {
+	if err := DB.Delete(&User{}, Id).Error; err != nil {
 		return err
 	}
 	return nil

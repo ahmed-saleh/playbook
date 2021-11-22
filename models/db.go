@@ -13,7 +13,7 @@ import (
 	"github.com/ahmed-saleh/playbook/config"
 )
 
-var db *gorm.DB
+var DB *gorm.DB
 
 type Model struct {
 	ID        uint `gorm:"primaryKey,autoIncrement"`
@@ -29,11 +29,11 @@ func Setup(m *config.Mysql) {
 	//TODO: clean up this
 	dsn := m.User + ":" + m.Password + "@tcp" + "(" + m.Host + ":" + m.Port + ")/" + m.Name + "?" + "parseTime=true&loc=Local"
 
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalf("models.Setup err: %v", err)
 	}
 
-	db.AutoMigrate(&User{})
+	DB.AutoMigrate(&User{})
 }
