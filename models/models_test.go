@@ -3,10 +3,12 @@ package models_test
 import (
 	"testing"
 
+	"github.com/DATA-DOG/go-sqlmock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 
-	c "github.com/ahmed-saleh/playbook/config"
 	"github.com/ahmed-saleh/playbook/models"
 )
 
@@ -26,15 +28,33 @@ var _ = Describe("User", func() {
 	}
 
 	BeforeEach(func() {
-		c.Setup("../ini/test.ini")
-		models.Setup(c.MysqlSettings)
+		// c.Setup("../ini/test.ini")
 	})
 
 	Describe("Adding User", func() {
+		defer GinkgoRecover()
+		sqlDB, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
+		Expect(err).To(BeNil())
+
+		var error error
+
+		models.DB, error = gorm.Open(mysql.New(mysql.Config{
+			Conn:                      sqlDB,
+			SkipInitializeWithVersion: true,
+		}), &gorm.Config{})
+
+		Expect(error).To(BeNil())
+
 		Context("User data must be valid", func() {
-			It("it will return nil", func() {
-				res := models.AddUser(validData)
-				Expect(res).To(BeNil())
+			It("it will commit to db successfully", func() {
+				mock.ExpectBegin()
+				mock.ExpectExec("INSERT INTO `users` (`created_at`,`updated_at`,`deleted_at`,`uuid`,`display_name`,`email`) VALUES (?,?,?,?,?,?)").
+					WillReturnResult(sqlmock.NewResult(1, 1))
+				mock.ExpectCommit()
+
+				models.AddUser(validData)
+				err := mock.ExpectationsWereMet()
+				Expect(err).NotTo(HaveOccurred())
 			})
 
 			It("it will return err", func() {
