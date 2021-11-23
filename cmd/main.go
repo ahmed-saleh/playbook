@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/ahmed-saleh/playbook/cmd/server"
 	"github.com/ahmed-saleh/playbook/config"
 	"github.com/ahmed-saleh/playbook/models"
+	"github.com/ahmed-saleh/playbook/server"
 )
 
 func main() {

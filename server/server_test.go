@@ -6,8 +6,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/ahmed-saleh/playbook/cmd/server"
 	c "github.com/ahmed-saleh/playbook/config"
+	"github.com/ahmed-saleh/playbook/server"
 )
 
 func TestConfig(t *testing.T) {
@@ -18,7 +18,7 @@ func TestConfig(t *testing.T) {
 var _ = Describe("Server", func() {
 
 	BeforeEach(func() {
-		c.Setup("../../ini/test.ini")
+		c.Setup("../ini/test.ini")
 	})
 
 	Describe("Server testing", func() {
