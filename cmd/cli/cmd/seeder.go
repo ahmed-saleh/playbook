@@ -5,14 +5,16 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+
+	s "github.com/ahmed-saleh/playbook/services"
 )
 
 type SeederPerformer interface {
 	Name() string
-	Seed() bool
+	Seed() error
 }
 
-func PerformSeed(s SeederPerformer) bool {
+func PerformSeed(s SeederPerformer) error {
 	return s.Seed()
 }
 
@@ -20,9 +22,15 @@ type AdminSeeder struct {
 	SeederName string
 }
 
-func (a *AdminSeeder) Seed() bool {
-	fmt.Println("seeding started for ", a.SeederName)
-	return true
+func (a *AdminSeeder) Seed() error {
+	fmt.Println("seeding started Admin user")
+	service := s.User{
+		Display_name: "Admin",
+		Email:        "Admin@",
+		Password:     "changeMe",
+	}
+
+	return service.AddUser()
 }
 
 func (a *AdminSeeder) Name() string {
@@ -68,7 +76,11 @@ var seeder = &cobra.Command{
 		case strings.Join(GetRegisteredSeeders(), ","):
 			{
 				seeder, _ := GetSeeder(args[0])
-				PerformSeed(seeder)
+				err := PerformSeed(seeder)
+				if err != nil {
+					fmt.Println("there was an error ", err)
+				}
+				fmt.Println("seeding completed")
 			}
 		default:
 			fmt.Println("Please select a valid seeder, Valid options are: ", strings.Join(GetRegisteredSeeders(), ","))
