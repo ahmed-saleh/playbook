@@ -34,9 +34,9 @@ var _ = Describe("User", func() {
 
 	Describe("Adding User", func() {
 		defer GinkgoRecover()
+
 		sqlDB, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 		Expect(err).To(BeNil())
-
 		var error error
 
 		models.DB, error = gorm.Open(mysql.New(mysql.Config{
