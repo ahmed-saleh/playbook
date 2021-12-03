@@ -13,6 +13,7 @@ import (
 type CreateUserForm struct {
 	Email        string
 	Display_name string
+	Password     string
 }
 
 func GetUser(c *gin.Context) {
@@ -31,6 +32,7 @@ func CreateUser(c *gin.Context) {
 	userService := services.User{
 		Display_name: form.Display_name,
 		Email:        form.Email,
+		Password:     form.Password,
 	}
 
 	if err := userService.AddUser(); err != nil {

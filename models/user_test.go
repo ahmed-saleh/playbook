@@ -22,6 +22,7 @@ var _ = Describe("User", func() {
 	validData := map[string]interface{}{
 		"email":        "test@email",
 		"display_name": "mr. John Doe",
+		"password":     "testingPassword1",
 	}
 	inValidData := map[string]interface{}{
 		"display_name": "mr. John Doe",
@@ -48,7 +49,7 @@ var _ = Describe("User", func() {
 		Context("User data must be valid", func() {
 			It("it will commit to db successfully", func() {
 				mock.ExpectBegin()
-				mock.ExpectExec("INSERT INTO `users` (`created_at`,`updated_at`,`deleted_at`,`uuid`,`display_name`,`email`) VALUES (?,?,?,?,?,?)").
+				mock.ExpectExec("INSERT INTO `users` (`created_at`,`updated_at`,`deleted_at`,`uuid`,`display_name`,`email`,`password`) VALUES (?,?,?,?,?,?,?)").
 					WillReturnResult(sqlmock.NewResult(1, 1))
 				mock.ExpectCommit()
 

@@ -8,6 +8,7 @@ type User struct {
 	Id           string
 	Display_name string
 	Email        string
+	Password     string
 	PageNum      int
 	PageSize     int
 }
@@ -16,6 +17,7 @@ func (u *User) AddUser() error {
 	user := map[string]interface{}{
 		"email":        u.Email,
 		"display_name": u.Display_name,
+		"password":     u.Password,
 	}
 
 	if err := m.AddUser(user); err != nil {
