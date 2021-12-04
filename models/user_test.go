@@ -28,13 +28,9 @@ var _ = Describe("User", func() {
 		"display_name": "mr. John Doe",
 	}
 
-	BeforeEach(func() {
-		// c.Setup("../ini/test.ini")
-	})
-
 	Describe("Adding User", func() {
 		defer GinkgoRecover()
-
+		//TODO: move this into BeforeEach
 		sqlDB, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 		Expect(err).To(BeNil())
 		var error error
@@ -54,8 +50,6 @@ var _ = Describe("User", func() {
 				mock.ExpectCommit()
 
 				models.AddUser(validData)
-				err := mock.ExpectationsWereMet()
-				Expect(err).NotTo(HaveOccurred())
 			})
 
 			It("it will return err", func() {
@@ -64,5 +58,27 @@ var _ = Describe("User", func() {
 				Expect(res).To(ContainSubstring("email"))
 			})
 		})
+
+		Context("Finding a User", func() {
+
+			models.DB, error = gorm.Open(mysql.New(mysql.Config{
+				Conn:                      sqlDB,
+				SkipInitializeWithVersion: true,
+			}), &gorm.Config{})
+
+			Expect(error).To(BeNil())
+
+			It("it will find the user correctly", func() {
+				mock.ExpectQuery("SELECT * FROM `users` WHERE `users`.`deleted_at` IS NULL")
+
+				_, _ = models.FindByEmail("email")
+			})
+
+		})
+
+		//all query assertions
+		error = mock.ExpectationsWereMet()
+		Expect(error).NotTo(HaveOccurred())
 	})
+
 })

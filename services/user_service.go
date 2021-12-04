@@ -4,6 +4,7 @@ import (
 	m "github.com/ahmed-saleh/playbook/models"
 )
 
+//TODO: init the DB connection here to pass it into the models later
 type User struct {
 	Id           string
 	Display_name string
