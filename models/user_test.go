@@ -20,12 +20,13 @@ func TestConfig(t *testing.T) {
 var _ = Describe("User", func() {
 
 	validData := map[string]interface{}{
-		"email":        "test@email",
+		"email":        "valid@email.com",
 		"display_name": "mr. John Doe",
 		"password":     "testingPassword1",
 	}
 	inValidData := map[string]interface{}{
 		"display_name": "mr. John Doe",
+		"email":        "Invalid",
 	}
 
 	BeforeEach(func() {

@@ -25,7 +25,7 @@ func (u *User) BeforeCreate(db *gorm.DB) error {
 func AddUser(data map[string]interface{}) error {
 	v := validate.Map(data)
 	//TODO: build a helper and apply on middleware as well
-	v.StringRule("email", "required|minLen:3")
+	v.StringRule("email", "required|email")
 	v.StringRule("display_name", "required|minLen:3")
 	v.StringRule("password", "required|minLen:8")
 
