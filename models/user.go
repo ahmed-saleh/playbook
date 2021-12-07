@@ -66,3 +66,9 @@ func DeleteUser(Id string) error {
 	}
 	return nil
 }
+
+func FindByEmail(email string) (User, error) {
+	var user User
+	res := DB.Find(&user, &User{Email: email})
+	return user, res.Error
+}
