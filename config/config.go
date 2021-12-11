@@ -12,6 +12,7 @@ import (
 */
 type App struct {
 	JwtSecret string
+	JwtTime   int
 	// PageSize  int
 	PrefixUrl       string
 	RuntimeRootPath string
@@ -59,6 +60,7 @@ var AppSetting = &App{}
 var MysqlSettings = &Mysql{}
 var cfg *ini.File
 
+//look into setting them into variables, to use os.Env
 func Setup(path string) {
 	var err error
 	cfg, err = ini.Load(path)

@@ -21,7 +21,6 @@ func TestConfig(t *testing.T) {
 var _ = Describe("Seed Registering", func() {
 
 	BeforeEach(func() {
-		// c.Setup("../ini/test.ini")
 	})
 
 	Describe("Register Seeder", func() {
