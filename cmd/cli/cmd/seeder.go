@@ -26,7 +26,7 @@ func (a *AdminSeeder) Seed() error {
 	fmt.Println("seeding started Admin user")
 	service := s.User{
 		Display_name: "Admin",
-		Email:        "Admin@",
+		Email:        "admin@playbook.com",
 		Password:     "changeMe",
 	}
 
@@ -69,7 +69,7 @@ var seeder = &cobra.Command{
 	Args:      cobra.OnlyValidArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 1 {
-			fmt.Println("please provide a valid arguments")
+			fmt.Println("Please select a valid seeder, Valid options are: ", strings.Join(GetRegisteredSeeders(), ","))
 			return
 		}
 		switch args[0] {
