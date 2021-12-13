@@ -1,44 +1,50 @@
 package auth
 
 import (
-	"net/http"
+	"errors"
+	"fmt"
 
-	"github.com/ahmed-saleh/playbook/models"
-	"github.com/ahmed-saleh/playbook/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/gookit/validate"
 	"golang.org/x/crypto/bcrypt"
+
+	"github.com/ahmed-saleh/playbook/models"
 )
 
-func Login(c *gin.Context) {
-	appG := app.Gin{C: c}
+type LoginForm struct {
+	Email    string
+	Password string
+}
+
+func Login(c *gin.Context) (interface{}, error) {
+	var form LoginForm
+	_ = c.Bind(&form)
 
 	data := make(map[string]interface{})
-	data["email"] = c.PostForm("email")
-	data["password"] = c.PostForm("password")
-
+	data["email"] = form.Email
+	data["password"] = form.Password
 	v := validate.Map(data)
 	v.StringRule("email", "required")
 	v.StringRule("password", "required")
 
 	if v.Validate() {
-		user, err := models.FindByEmail(data["password"].(string))
+		user, err := models.FindByEmail(data["email"].(string))
+		fmt.Println(user)
+
 		if err != nil {
-			appG.Response(http.StatusBadRequest, 422, "Authentication failed")
+			return "", err
+		}
+		if user == (models.User{}) {
+			//TODO: log no user login
+			return "", errors.New("authentication faild")
 		}
 
 		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(data["password"].(string)))
 		if err != nil {
-			appG.Response(http.StatusBadRequest, 422, "Authentication failed")
+			return "", errors.New("authentication faild")
 		}
-		appG.Response(http.StatusBadRequest, 422, "Authentication failed")
+		return "token", nil
 	} else {
-		appG.Response(http.StatusBadRequest, 400, map[string]string{
-			"error": v.Errors.Error(),
-		})
+		return "", v.Errors
 	}
-
-	appG.Response(http.StatusOK, 200, map[string]string{
-		"token": "token",
-	})
 }

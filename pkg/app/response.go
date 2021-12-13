@@ -21,5 +21,4 @@ func (g *Gin) Response(httpCode, errCode int, data interface{}) {
 		Msg:  "arrived",
 		Data: data,
 	})
-	return
 }
