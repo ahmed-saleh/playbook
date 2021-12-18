@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
 	"github.com/ahmed-saleh/playbook/config"
@@ -30,6 +31,20 @@ func Setup(m *config.Mysql) {
 	dsn := m.User + ":" + m.Password + "@tcp" + "(" + m.Host + ":" + m.Port + ")/" + m.Name + "?" + "parseTime=true&loc=Local"
 
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		log.Fatalf("models.Setup err: %v", err)
+	}
+
+	DB.AutoMigrate(&User{})
+}
+
+func SetupSqli() {
+
+	var err error
+	//TODO: clean up this
+
+	DB, err = gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalf("models.Setup err: %v", err)

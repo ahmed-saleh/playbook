@@ -51,17 +51,17 @@ var _ = Describe("JWT", func() {
 			Expect(token).NotTo(BeEmpty())
 			c := &app.Claims{}
 			t, e := jwt.ParseWithClaims(token, c, func(token *jwt.Token) (interface{}, error) {
-				return "Invalid Key", nil
+				return []byte("Invalid Key"), nil
 			})
 
 			Expect(e).To(HaveOccurred())
 			Expect(t.Valid).To(BeFalse())
 
 			t, e = jwt.ParseWithClaims(token, c, func(token *jwt.Token) (interface{}, error) {
-				return config.AppSetting.JwtSecret, nil
+				return []byte(config.AppSetting.JwtSecret), nil
 			})
 
-			Expect(e).To(HaveOccurred())
+			Expect(e).ToNot(HaveOccurred())
 			Expect(t.Valid).To(BeTrue())
 		})
 	})
