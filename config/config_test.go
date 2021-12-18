@@ -28,4 +28,12 @@ var _ = Describe("Config", func() {
 		})
 	})
 
+	Describe("Verifying JWT Setup", func() {
+		Context("JWT time", func() {
+			It("should be ", func() {
+				Expect(c.AppSetting.JwtTime).To(Equal(60)) //test.ini data is 60
+			})
+		})
+	})
+
 })

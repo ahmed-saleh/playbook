@@ -4,8 +4,10 @@ go 1.16
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0
-	github.com/gin-gonic/gin v1.7.3
-	github.com/go-playground/validator/v10 v10.9.0
+	github.com/appleboy/gin-jwt/v2 v2.7.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/gin-gonic/gin v1.7.4
+	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/google/uuid v1.3.0
 	github.com/gookit/validate v1.2.11
 	github.com/mattn/go-isatty v0.0.13 // indirect
@@ -17,5 +19,6 @@ require (
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
 	gopkg.in/ini.v1 v1.63.2
 	gorm.io/driver/mysql v1.1.2
-	gorm.io/gorm v1.21.16
+	gorm.io/driver/sqlite v1.2.6
+	gorm.io/gorm v1.22.3
 )
