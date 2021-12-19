@@ -2,7 +2,6 @@ package app_test
 
 import (
 	"errors"
-	"sync"
 	"testing"
 	"time"
 
@@ -13,8 +12,6 @@ import (
 
 func TestStateMachine(t *testing.T) {
 
-	var wg sync.WaitGroup
-	wg.Add(1)
 	//action function
 	actionFunc := func(v chan app.StateResponse) {
 		time.Sleep(time.Second * 2)
